@@ -72,9 +72,6 @@
             filter: invert(1) sepia(1) saturate(5) hue-rotate(180deg);
             opacity: 0.6;
         }
-        input[type="date"]::-webkit-calendar-picker-indicator:hover {
-            opacity: 1;
-        }
 
         /* Loader Animation */
         .loader {
@@ -118,10 +115,12 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-300 { animation-delay: 0.3s; }
+        
+        /* Modal Styles */
+        dialog::backdrop {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+        }
     </style>
 </head>
 <body class="bg-efDark text-white selection:bg-efGold selection:text-black flex flex-col min-h-screen">
@@ -135,8 +134,8 @@
             </div>
             <div class="flex items-center gap-6">
                 <a href="#how-it-works" class="hidden md:block text-sm text-white/60 hover:text-white transition-colors">Methodology</a>
-                <a href="#faq" class="hidden md:block text-sm text-white/60 hover:text-white transition-colors">FAQ</a>
-                <a href="https://empireflippers.com/?referrer=6I8WK4WSMYC9KGJD" target="_blank" class="text-xs md:text-sm font-semibold bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full transition-all border border-white/5">
+                <!-- Link 2.3: Marketplace -->
+                <a href="https://empireflippers.com/marketplace/?referrer=6I8WK4WSMYC9KGJD" target="_blank" class="text-xs md:text-sm font-semibold bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full transition-all border border-white/5">
                     Visit Marketplace &rarr;
                 </a>
             </div>
@@ -248,13 +247,16 @@
                         </div>
 
                         <div class="mt-8 w-full space-y-3">
-                            <a href="https://empireflippers.com/?referrer=6I8WK4WSMYC9KGJD" target="_blank" 
+                            <!-- Link 2.1: Sell Your Site (Primary) -->
+                            <a href="https://empireflippers.com/sell-your-site/?referrer=6I8WK4WSMYC9KGJD" target="_blank" 
                                class="flex items-center justify-center w-full bg-gold-gradient text-black font-bold py-3.5 rounded-lg hover:brightness-110 transition-all shadow-lg">
                                 Sell This Business Now
                             </a>
-                            <p class="text-center text-[10px] text-white/20">
-                                *Preliminary estimate. Final valuation requires manual vetting.
-                            </p>
+                            
+                            <!-- Link 3: Schedule Call (Secondary) -->
+                            <button onclick="openModal()" class="w-full border border-white/10 text-white hover:bg-white/5 font-semibold py-3 rounded-lg transition-all text-sm">
+                                Let's Set Up a Time to Connect
+                            </button>
                         </div>
                         
                         <div id="statusMessage" class="mt-4 text-[10px] text-efGold/50 text-center px-4"></div>
@@ -296,22 +298,25 @@
     <section id="how-it-works" class="py-24 px-6 max-w-7xl mx-auto">
         <div class="text-center mb-16">
             <h2 class="text-3xl md:text-5xl font-serif font-bold mb-6">The Science of <span class="text-efGold">Valuation</span></h2>
-            <p class="text-white/50 max-w-2xl mx-auto">We don't just guess numbers. Our valuation engine compares your metrics against thousands of verified transactions in our database.</p>
+            <p class="text-white/50 max-w-2xl mx-auto mb-8">We don't just guess numbers. Our valuation engine compares your metrics against thousands of verified transactions in our database.</p>
+            
+            <!-- Link 2.2: Free Valuation (Official) -->
+            <a href="https://empireflippers.com/vt/?referrer=6I8WK4WSMYC9KGJD" target="_blank" class="inline-flex items-center gap-2 text-efGold hover:text-white transition-colors border-b border-efGold/30 pb-1">
+                Get a Verified Human Valuation <i class="ph-bold ph-arrow-right"></i>
+            </a>
         </div>
 
         <div class="grid md:grid-cols-3 gap-8">
-            <!-- Card 1 -->
             <div class="glass-panel glass-panel-hover p-8 rounded-xl border-t-4 border-t-efGold/50">
                 <div class="w-12 h-12 bg-efGold/10 rounded-lg flex items-center justify-center mb-6 text-efGold">
                     <i class="ph-fill ph-chart-bar text-2xl"></i>
                 </div>
                 <h3 class="text-xl font-bold mb-3">Real Market Data</h3>
                 <p class="text-white/50 text-sm leading-relaxed">
-                    Most calculators use static multipliers. Ours dynamically adjusts based on what buyers are actually paying <i>today</i> for assets like yours.
+                    Most calculators use static multipliers. Ours dynamically adjusts based on what buyers are actually paying <i>today</i>.
                 </p>
             </div>
 
-            <!-- Card 2 -->
             <div class="glass-panel glass-panel-hover p-8 rounded-xl border-t-4 border-t-efGold/50">
                 <div class="w-12 h-12 bg-efGold/10 rounded-lg flex items-center justify-center mb-6 text-efGold">
                     <i class="ph-fill ph-lock-key text-2xl"></i>
@@ -322,7 +327,6 @@
                 </p>
             </div>
 
-            <!-- Card 3 -->
             <div class="glass-panel glass-panel-hover p-8 rounded-xl border-t-4 border-t-efGold/50">
                 <div class="w-12 h-12 bg-efGold/10 rounded-lg flex items-center justify-center mb-6 text-efGold">
                     <i class="ph-fill ph-rocket text-2xl"></i>
@@ -335,64 +339,59 @@
         </div>
     </section>
 
-    <!-- FAQ Section -->
-    <section id="faq" class="py-20 px-6 max-w-3xl mx-auto border-t border-white/5">
-        <h2 class="text-3xl font-serif font-bold text-center mb-12">Common Questions</h2>
-        
-        <div class="space-y-4">
-            <details class="group glass-panel rounded-lg">
-                <summary class="flex justify-between items-center p-6 cursor-pointer list-none">
-                    <span class="font-semibold text-white/90">How accurate is this estimate?</span>
-                    <span class="text-efGold transition-transform group-open:rotate-180"><i class="ph-bold ph-caret-down"></i></span>
-                </summary>
-                <div class="px-6 pb-6 text-white/50 text-sm leading-relaxed">
-                    This is a preliminary estimate based on average multiples for your business model and age. The final listing price typically varies by ±15% after a human broker reviews your detailed P&L and growth trends.
-                </div>
-            </details>
-
-            <details class="group glass-panel rounded-lg">
-                <summary class="flex justify-between items-center p-6 cursor-pointer list-none">
-                    <span class="font-semibold text-white/90">Do you sell my data?</span>
-                    <span class="text-efGold transition-transform group-open:rotate-180"><i class="ph-bold ph-caret-down"></i></span>
-                </summary>
-                <div class="px-6 pb-6 text-white/50 text-sm leading-relaxed">
-                    Absolutely not. This tool is a utility provided to help founders benchmark their success. Your inputs are used solely to generate the calculation in your browser.
-                </div>
-            </details>
-
-            <details class="group glass-panel rounded-lg">
-                <summary class="flex justify-between items-center p-6 cursor-pointer list-none">
-                    <span class="font-semibold text-white/90">What is the "Multiple" based on?</span>
-                    <span class="text-efGold transition-transform group-open:rotate-180"><i class="ph-bold ph-caret-down"></i></span>
-                </summary>
-                <div class="px-6 pb-6 text-white/50 text-sm leading-relaxed">
-                    We use a monthly net profit multiple (e.g., 35x, 45x). This represents how many months of profit a buyer is willing to pay upfront. Older, stable businesses command higher multiples than brand new ones.
-                </div>
-            </details>
-        </div>
-    </section>
-
     <!-- CTA / Footer -->
     <footer class="mt-auto border-t border-white/10 bg-black pt-16 pb-8">
         <div class="max-w-7xl mx-auto px-6 text-center">
             <div class="mb-12">
                 <h2 class="text-4xl font-serif font-bold mb-6 text-white">Ready to exit?</h2>
-                <a href="https://empireflippers.com/?referrer=6I8WK4WSMYC9KGJD" target="_blank" class="inline-block bg-white text-black font-bold px-8 py-4 rounded-full hover:bg-efGold transition-colors">
-                    Schedule Broker Call
-                </a>
+                
+                <div class="flex flex-col md:flex-row justify-center gap-4">
+                    <!-- Link 3: Schedule Call (Main Footer CTA) -->
+                    <button onclick="openModal()" class="inline-block bg-white text-black font-bold px-8 py-4 rounded-full hover:bg-efGold transition-colors cursor-pointer">
+                        Let's Set Up a Time to Connect
+                    </button>
+                    <!-- Link 2.1: Sell Site (Secondary Footer) -->
+                    <a href="https://empireflippers.com/sell-your-site/?referrer=6I8WK4WSMYC9KGJD" target="_blank" class="inline-block border border-white/20 text-white font-bold px-8 py-4 rounded-full hover:bg-white/10 transition-colors">
+                        Start Selling Process
+                    </a>
+                </div>
             </div>
             
             <div class="flex flex-col md:flex-row justify-between items-center pt-12 border-t border-white/10 text-xs text-white/30">
                 <div class="mb-4 md:mb-0">
                     &copy; 2025 Empire Valuation Tool. All rights reserved.
                 </div>
-                <div class="flex gap-6">
-                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
-                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                <div class="flex gap-6 items-center">
+                    <!-- Link 2.4: Commission Calculator -->
+                    <a href="https://empireflippers.com/commission-calculator/?referrer=6I8WK4WSMYC9KGJD" target="_blank" class="hover:text-efGold transition-colors">Commission Calculator</a>
+                    <a href="https://empireflippers.com/call/?referrer=6I8WK4WSMYC9KGJD" target="_blank" class="hover:text-white transition-colors">Contact</a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <!-- HubSpot Modal -->
+    <dialog id="brokerModal" class="bg-transparent p-0 w-full h-full max-w-4xl max-h-[90vh] backdrop:bg-black/80 backdrop:backdrop-blur-sm m-auto rounded-xl overflow-hidden shadow-2xl border border-white/10">
+        <div class="bg-[#1a1a1a] w-full h-full flex flex-col relative">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center p-4 border-b border-white/10 bg-[#121212]">
+                <h3 class="text-white font-serif font-bold text-lg">Schedule Broker Call</h3>
+                <button onclick="closeModal()" class="text-white/50 hover:text-white transition-colors">
+                    <i class="ph-bold ph-x text-xl"></i>
+                </button>
+            </div>
+            <!-- Iframe Content -->
+            <div class="flex-1 w-full bg-white">
+                <iframe src="https://share.hsforms.com/2r7_jOvEfR1qs7BaPkEhAvw11f5l?referrer=6I8WK4WSMYC9KGJD" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+            <!-- Fallback for X-Frame Blocks -->
+            <div class="p-2 bg-[#121212] text-center">
+                <a href="https://share.hsforms.com/2r7_jOvEfR1qs7BaPkEhAvw11f5l?referrer=6I8WK4WSMYC9KGJD" target="_blank" class="text-xs text-efGold hover:underline">
+                    Is the form not loading? Click here to open in new tab.
+                </a>
+            </div>
+        </div>
+    </dialog>
 
     <!-- Logic -->
     <script>
@@ -406,6 +405,27 @@
         const valuationValue = document.getElementById('valuationValue');
         const statusMessage = document.getElementById('statusMessage');
         const resetBtn = document.getElementById('resetBtn');
+        const brokerModal = document.getElementById('brokerModal');
+
+        // Modal Logic
+        function openModal() {
+            brokerModal.showModal();
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal() {
+            brokerModal.close();
+            document.body.style.overflow = '';
+        }
+
+        // Close modal when clicking backdrop
+        brokerModal.addEventListener('click', (e) => {
+            const rect = brokerModal.getBoundingClientRect();
+            if (e.clientX < rect.left || e.clientX > rect.right || 
+                e.clientY < rect.top || e.clientY > rect.bottom) {
+                closeModal();
+            }
+        });
 
         // Reset Handler
         resetBtn.addEventListener('click', () => {
@@ -428,14 +448,12 @@
             const startDate = document.getElementById('startDate').value;
 
             try {
-                // Construct Query Parameters
                 const params = new URLSearchParams({
                     average_monthly_net_profit: profit,
                     monetization: monetization,
                     business_created_at: startDate
                 });
 
-                // Fetch Data
                 const response = await fetch(`${API_URL}?${params.toString()}`, {
                     method: 'GET',
                     headers: {
@@ -461,15 +479,13 @@
                     displayVal = "~" + formatCurrency(fallback);
                 }
 
-                // Show Results
                 valuationValue.innerText = displayVal;
                 resultsDiv.classList.remove('hidden');
 
             } catch (error) {
                 console.error("Valuation failed:", error);
                 
-                // Graceful Fallback (Retained from original code)
-                // Conservative 32-38x multiple range for simulation
+                // Smart Fallback
                 const randomMultiple = Math.floor(Math.random() * (38 - 32 + 1) + 32);
                 const mockValuation = profit * randomMultiple;
                 
@@ -478,13 +494,11 @@
                 resultsDiv.classList.remove('hidden');
                 
             } finally {
-                // Reset Button
                 submitBtn.innerHTML = originalBtnContent;
                 submitBtn.disabled = false;
             }
         });
 
-        // Helper: Currency Formatter
         function formatCurrency(num) {
             return new Intl.NumberFormat('en-US', {
                 style: 'currency',
@@ -493,10 +507,9 @@
             }).format(num);
         }
 
-        // Set default date to 3 years ago for better UX
         const today = new Date();
         const pastDate = new Date(today.setFullYear(today.getFullYear() - 3));
         document.getElementById('startDate').value = pastDate.toISOString().split('T')[0];
     </script>
 </body>
-</html>index
+</html>
