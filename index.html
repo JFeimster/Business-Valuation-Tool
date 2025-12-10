@@ -122,7 +122,6 @@
             backdrop-filter: blur(4px);
         }
         
-        /* Modal Animation */
         dialog[open] {
             animation: zoomIn 0.2s ease-out forwards;
         }
@@ -144,7 +143,6 @@
             </div>
             <div class="flex items-center gap-6">
                 <a href="#how-it-works" class="hidden md:block text-sm text-white/60 hover:text-white transition-colors">Methodology</a>
-                <!-- Link 2.3: Marketplace -->
                 <a href="https://empireflippers.com/marketplace/?referrer=6I8WK4WSMYC9KGJD" target="_blank" class="text-xs md:text-sm font-semibold bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full transition-all border border-white/5">
                     Visit Marketplace &rarr;
                 </a>
@@ -154,7 +152,6 @@
 
     <!-- Hero / Calculator Section -->
     <main class="relative pt-32 pb-20 md:pt-40 md:pb-32 px-4 overflow-hidden">
-        <!-- Background Ambient Glow -->
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-efGold/10 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
 
         <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 md:gap-24 items-center">
@@ -172,7 +169,6 @@
                     Stop guessing. Leverage real transaction data from the world's #1 curated marketplace to calculate your digital asset's true value in seconds.
                 </p>
                 
-                <!-- Trust Badges (Mini) -->
                 <div class="pt-8 flex flex-wrap justify-center md:justify-start gap-6 opacity-40 grayscale hover:grayscale-0 transition-all duration-500">
                     <div class="flex items-center gap-2">
                         <i class="ph-fill ph-shield-check text-xl"></i>
@@ -194,10 +190,20 @@
                 <div class="absolute -inset-1 bg-gradient-to-b from-efGold/20 to-transparent rounded-2xl blur-sm opacity-50"></div>
                 <div class="relative glass-panel rounded-2xl p-6 md:p-8 shadow-2xl">
                     
-                    <form id="valuationForm" class="space-y-6">
-                        <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
+                    <form id="valuationForm" class="space-y-5">
+                        <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
                             <h3 class="font-serif text-xl font-bold">Quick Valuation</h3>
                             <span class="text-xs text-white/40 font-mono">API STATUS: ONLINE</span>
+                        </div>
+
+                        <!-- Email Capture Field (New for v4) -->
+                        <div class="space-y-2">
+                            <label class="text-xs uppercase tracking-widest text-efGold font-bold">Where should we send the report?</label>
+                            <div class="relative group">
+                                <i class="ph-bold ph-envelope-simple absolute left-4 top-4 text-white/50 group-hover:text-efGold transition-colors"></i>
+                                <input type="email" id="userEmail" placeholder="founder@example.com" required 
+                                    class="w-full bg-efCard border border-white/10 rounded-lg pl-10 pr-4 py-4 text-white focus:border-efGold focus:ring-1 focus:ring-efGold outline-none transition-all placeholder:text-white/20 group-hover:border-white/20">
+                            </div>
                         </div>
 
                         <div class="space-y-2">
@@ -220,23 +226,25 @@
                             </div>
                         </div>
 
-                        <div class="space-y-2">
-                            <label class="text-xs uppercase tracking-widest text-efGold font-bold">Avg. Monthly Net Profit</label>
-                            <div class="relative group">
-                                <i class="ph-bold ph-currency-dollar absolute left-4 top-4 text-white/50 group-hover:text-efGold transition-colors"></i>
-                                <input type="number" id="profit" placeholder="e.g. 8500" min="1" required 
-                                    class="w-full bg-efCard border border-white/10 rounded-lg pl-10 pr-4 py-4 text-white focus:border-efGold focus:ring-1 focus:ring-efGold outline-none transition-all placeholder:text-white/20 group-hover:border-white/20">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="text-xs uppercase tracking-widest text-efGold font-bold">Monthly Profit</label>
+                                <div class="relative group">
+                                    <i class="ph-bold ph-currency-dollar absolute left-4 top-4 text-white/50 group-hover:text-efGold transition-colors"></i>
+                                    <input type="number" id="profit" placeholder="5000" min="1" required 
+                                        class="w-full bg-efCard border border-white/10 rounded-lg pl-10 pr-4 py-4 text-white focus:border-efGold focus:ring-1 focus:ring-efGold outline-none transition-all placeholder:text-white/20 group-hover:border-white/20">
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="text-xs uppercase tracking-widest text-efGold font-bold">Start Date</label>
+                                <input type="date" id="startDate" required 
+                                    class="w-full bg-efCard border border-white/10 rounded-lg px-4 py-4 text-white focus:border-efGold focus:ring-1 focus:ring-efGold outline-none transition-all [color-scheme:dark] cursor-pointer hover:border-white/20">
                             </div>
                         </div>
 
-                        <div class="space-y-2">
-                            <label class="text-xs uppercase tracking-widest text-efGold font-bold">Start Date</label>
-                            <input type="date" id="startDate" required 
-                                class="w-full bg-efCard border border-white/10 rounded-lg px-4 py-4 text-white focus:border-efGold focus:ring-1 focus:ring-efGold outline-none transition-all [color-scheme:dark] cursor-pointer hover:border-white/20">
-                        </div>
-
                         <button type="submit" id="submitBtn" class="w-full bg-gold-gradient hover:brightness-110 text-black font-bold text-lg py-4 rounded-lg transition-all duration-300 shadow-[0_0_20px_rgba(197,160,89,0.3)] hover:shadow-[0_0_30px_rgba(197,160,89,0.5)] transform active:scale-[0.99] mt-2">
-                            Calculate Value
+                            Get Instant Valuation
                         </button>
                     </form>
 
@@ -257,13 +265,11 @@
                         </div>
 
                         <div class="mt-8 w-full space-y-3">
-                            <!-- Link 2.1: Sell Your Site (Primary) -->
                             <a href="https://empireflippers.com/sell-your-site/?referrer=6I8WK4WSMYC9KGJD" target="_blank" 
                                class="flex items-center justify-center w-full bg-gold-gradient text-black font-bold py-3.5 rounded-lg hover:brightness-110 transition-all shadow-lg">
                                 Sell This Business Now
                             </a>
                             
-                            <!-- Link 3: Schedule Call (Secondary) - Triggers Modal -->
                             <button onclick="openModal()" class="w-full border border-white/10 text-white hover:bg-white/5 font-semibold py-3 rounded-lg transition-all text-sm">
                                 Let's Set Up a Time to Connect
                             </button>
@@ -310,7 +316,6 @@
             <h2 class="text-3xl md:text-5xl font-serif font-bold mb-6">The Science of <span class="text-efGold">Valuation</span></h2>
             <p class="text-white/50 max-w-2xl mx-auto mb-8">We don't just guess numbers. Our valuation engine compares your metrics against thousands of verified transactions in our database.</p>
             
-            <!-- Link 2.2: Free Valuation (Official) -->
             <a href="https://empireflippers.com/vt/?referrer=6I8WK4WSMYC9KGJD" target="_blank" class="inline-flex items-center gap-2 text-efGold hover:text-white transition-colors border-b border-efGold/30 pb-1">
                 Get a Verified Human Valuation <i class="ph-bold ph-arrow-right"></i>
             </a>
@@ -356,11 +361,9 @@
                 <h2 class="text-4xl font-serif font-bold mb-6 text-white">Ready to exit?</h2>
                 
                 <div class="flex flex-col md:flex-row justify-center gap-4">
-                    <!-- Link 3: Connect (Triggers Modal for Form) -->
                     <button onclick="openModal()" class="inline-block bg-white text-black font-bold px-8 py-4 rounded-full hover:bg-efGold transition-colors cursor-pointer">
                         Let's Set Up a Time to Connect
                     </button>
-                    <!-- Link 2.1: Sell Site (Secondary) -->
                     <a href="https://empireflippers.com/sell-your-site/?referrer=6I8WK4WSMYC9KGJD" target="_blank" class="inline-block border border-white/20 text-white font-bold px-8 py-4 rounded-full hover:bg-white/10 transition-colors">
                         Start Selling Process
                     </a>
@@ -372,9 +375,7 @@
                     &copy; 2025 Empire Valuation Tool. All rights reserved.
                 </div>
                 <div class="flex gap-6 items-center">
-                    <!-- Link 2.4: Commission Calculator -->
                     <a href="https://empireflippers.com/commission-calculator/?referrer=6I8WK4WSMYC9KGJD" target="_blank" class="hover:text-efGold transition-colors">Commission Calculator</a>
-                    <!-- Direct Link for Contact as requested in 3 -->
                     <a href="https://empireflippers.com/call/?referrer=6I8WK4WSMYC9KGJD" target="_blank" class="hover:text-white transition-colors">Contact</a>
                 </div>
             </div>
@@ -384,18 +385,15 @@
     <!-- HubSpot Modal -->
     <dialog id="brokerModal" class="bg-transparent p-0 w-full h-full max-w-4xl max-h-[90vh] backdrop:bg-black/80 backdrop:backdrop-blur-sm m-auto rounded-xl overflow-hidden shadow-2xl border border-white/10">
         <div class="bg-[#1a1a1a] w-full h-full flex flex-col relative">
-            <!-- Modal Header -->
             <div class="flex justify-between items-center p-4 border-b border-white/10 bg-[#121212]">
                 <h3 class="text-white font-serif font-bold text-lg">Schedule Broker Call</h3>
                 <button onclick="closeModal()" class="text-white/50 hover:text-white transition-colors">
                     <i class="ph-bold ph-x text-xl"></i>
                 </button>
             </div>
-            <!-- Iframe Content -->
             <div class="flex-1 w-full bg-white">
                 <iframe src="https://share.hsforms.com/2r7_jOvEfR1qs7BaPkEhAvw11f5l?referrer=6I8WK4WSMYC9KGJD" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
             </div>
-            <!-- Fallback for X-Frame Blocks -->
             <div class="p-2 bg-[#121212] text-center">
                 <a href="https://share.hsforms.com/2r7_jOvEfR1qs7BaPkEhAvw11f5l?referrer=6I8WK4WSMYC9KGJD" target="_blank" class="text-xs text-efGold hover:underline">
                     Is the form not loading? Click here to open in new tab.
@@ -409,6 +407,9 @@
         // Configuration
         const API_KEY = "vCjGK41zdIXuAj1U6AFiV4eoALMR91tB";
         const API_URL = "https://api.empireflippers.com/api/v1/partner-toolkit/valuation-tool/valuation";
+        
+        // 🚨 REPLACE THIS WITH YOUR N8N/ZAPIER WEBHOOK URL 🚨
+        const WEBHOOK_URL = ""; 
 
         const form = document.getElementById('valuationForm');
         const submitBtn = document.getElementById('submitBtn');
@@ -421,7 +422,7 @@
         // Modal Logic
         function openModal() {
             brokerModal.showModal();
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
@@ -429,7 +430,6 @@
             document.body.style.overflow = '';
         }
 
-        // Close modal when clicking backdrop
         brokerModal.addEventListener('click', (e) => {
             const rect = brokerModal.getBoundingClientRect();
             if (e.clientX < rect.left || e.clientX > rect.right || 
@@ -438,7 +438,6 @@
             }
         });
 
-        // Reset Handler
         resetBtn.addEventListener('click', () => {
             resultsDiv.classList.add('hidden');
         });
@@ -454,11 +453,13 @@
             statusMessage.innerHTML = '';
 
             // Get Values
+            const email = document.getElementById('userEmail').value;
             const profit = document.getElementById('profit').value;
             const monetization = document.getElementById('monetization').value;
             const startDate = document.getElementById('startDate').value;
 
             try {
+                // 1. Fetch Valuation from API
                 const params = new URLSearchParams({
                     average_monthly_net_profit: profit,
                     monetization: monetization,
@@ -473,23 +474,40 @@
                     }
                 });
 
-                if (!response.ok) {
-                    throw new Error(`API Error: ${response.status}`);
-                }
-
+                if (!response.ok) throw new Error(`API Error: ${response.status}`);
                 const data = await response.json();
                 
                 let displayVal = "$0";
+                let rawVal = 0;
                 
                 if (data.data && data.data.listing_price) {
-                     displayVal = formatCurrency(data.data.listing_price);
+                     rawVal = data.data.listing_price;
+                     displayVal = formatCurrency(rawVal);
                 } else if (data.data && data.data.valuation_average) {
-                    displayVal = formatCurrency(data.data.valuation_average);
+                    rawVal = data.data.valuation_average;
+                    displayVal = formatCurrency(rawVal);
                 } else {
-                    const fallback = profit * 35;
-                    displayVal = "~" + formatCurrency(fallback);
+                    rawVal = profit * 35;
+                    displayVal = "~" + formatCurrency(rawVal);
                 }
 
+                // 2. Send Data to n8n/Zapier Webhook (Fire & Forget)
+                if (WEBHOOK_URL) {
+                    fetch(WEBHOOK_URL, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            email: email,
+                            profit: profit,
+                            model: monetization,
+                            valuation: displayVal,
+                            raw_valuation: rawVal,
+                            date: new Date().toISOString()
+                        })
+                    }).catch(err => console.error("Webhook failed:", err));
+                }
+
+                // 3. Show Results
                 valuationValue.innerText = displayVal;
                 resultsDiv.classList.remove('hidden');
 
