@@ -196,12 +196,11 @@
                             <span class="text-xs text-white/40 font-mono">API STATUS: ONLINE</span>
                         </div>
 
-                        <!-- Email Capture Field (New for v4) -->
                         <div class="space-y-2">
-                            <label class="text-xs uppercase tracking-widest text-efGold font-bold">Where should we send the report?</label>
+                            <label class="text-xs uppercase tracking-widest text-efGold font-bold">Email Address</label>
                             <div class="relative group">
                                 <i class="ph-bold ph-envelope-simple absolute left-4 top-4 text-white/50 group-hover:text-efGold transition-colors"></i>
-                                <input type="email" id="userEmail" placeholder="founder@example.com" required 
+                                <input type="email" id="userEmail" placeholder="your.email@example.com" required 
                                     class="w-full bg-efCard border border-white/10 rounded-lg pl-10 pr-4 py-4 text-white focus:border-efGold focus:ring-1 focus:ring-efGold outline-none transition-all placeholder:text-white/20 group-hover:border-white/20">
                             </div>
                         </div>
@@ -228,16 +227,16 @@
 
                         <div class="grid grid-cols-2 gap-4">
                             <div class="space-y-2">
-                                <label class="text-xs uppercase tracking-widest text-efGold font-bold">Monthly Profit</label>
+                                <label class="text-xs uppercase tracking-widest text-efGold font-bold">Monthly Net Profit</label>
                                 <div class="relative group">
                                     <i class="ph-bold ph-currency-dollar absolute left-4 top-4 text-white/50 group-hover:text-efGold transition-colors"></i>
-                                    <input type="number" id="profit" placeholder="5000" min="1" required 
+                                    <input type="number" id="profit" placeholder="e.g., 5000" min="1" required 
                                         class="w-full bg-efCard border border-white/10 rounded-lg pl-10 pr-4 py-4 text-white focus:border-efGold focus:ring-1 focus:ring-efGold outline-none transition-all placeholder:text-white/20 group-hover:border-white/20">
                                 </div>
                             </div>
 
                             <div class="space-y-2">
-                                <label class="text-xs uppercase tracking-widest text-efGold font-bold">Start Date</label>
+                                <label class="text-xs uppercase tracking-widest text-efGold font-bold">Business Start Date</label>
                                 <input type="date" id="startDate" required 
                                     class="w-full bg-efCard border border-white/10 rounded-lg px-4 py-4 text-white focus:border-efGold focus:ring-1 focus:ring-efGold outline-none transition-all [color-scheme:dark] cursor-pointer hover:border-white/20">
                             </div>
@@ -402,13 +401,12 @@
         </div>
     </dialog>
 
-    <!-- Logic -->
     <script>
-        // Configuration
+        // API Configuration
         const API_KEY = "vCjGK41zdIXuAj1U6AFiV4eoALMR91tB";
         const API_URL = "https://api.empireflippers.com/api/v1/partner-toolkit/valuation-tool/valuation";
         
-        // 🚨 REPLACE THIS WITH YOUR N8N/ZAPIER WEBHOOK URL 🚨
+        // Optional: Configure webhook URL for lead capture
         const WEBHOOK_URL = ""; 
 
         const form = document.getElementById('valuationForm');
@@ -419,7 +417,7 @@
         const resetBtn = document.getElementById('resetBtn');
         const brokerModal = document.getElementById('brokerModal');
 
-        // Modal Logic
+        // Modal functions
         function openModal() {
             brokerModal.showModal();
             document.body.style.overflow = 'hidden';
@@ -442,7 +440,7 @@
             resultsDiv.classList.add('hidden');
         });
 
-        // Form Handler
+        // Valuation form submission handler
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
@@ -459,7 +457,7 @@
             const startDate = document.getElementById('startDate').value;
 
             try {
-                // 1. Fetch Valuation from API
+                // Fetch valuation from API
                 const params = new URLSearchParams({
                     average_monthly_net_profit: profit,
                     monetization: monetization,
@@ -491,7 +489,7 @@
                     displayVal = "~" + formatCurrency(rawVal);
                 }
 
-                // 2. Send Data to n8n/Zapier Webhook (Fire & Forget)
+                // Send data to webhook for lead capture
                 if (WEBHOOK_URL) {
                     fetch(WEBHOOK_URL, {
                         method: "POST",
@@ -507,14 +505,14 @@
                     }).catch(err => console.error("Webhook failed:", err));
                 }
 
-                // 3. Show Results
+                // Display results
                 valuationValue.innerText = displayVal;
                 resultsDiv.classList.remove('hidden');
 
             } catch (error) {
                 console.error("Valuation failed:", error);
                 
-                // Smart Fallback
+                // Fallback calculation when API is unavailable
                 const randomMultiple = Math.floor(Math.random() * (38 - 32 + 1) + 32);
                 const mockValuation = profit * randomMultiple;
                 
